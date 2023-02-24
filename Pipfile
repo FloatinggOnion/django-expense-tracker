@@ -7,6 +7,8 @@ name = "pypi"
 django = "*"
 python-dotenv = "*"
 psycopg2 = "*"
+awsebcli = "*"
+gunicorn = "*"
 
 [dev-packages]
 
