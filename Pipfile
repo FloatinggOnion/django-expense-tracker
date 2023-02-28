@@ -11,6 +11,7 @@ awsebcli = "*"
 gunicorn = "*"
 dj-database-url = "*"
 whitenoise = "*"
+validate-email = "*"
 
 [dev-packages]
 
