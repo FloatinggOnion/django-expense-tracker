@@ -9,6 +9,7 @@ const password = document.querySelector('#passwordField');
 const passwordRepeat = document.querySelector('#passwordRepeatField');
 const passwordMatch = document.querySelector('.passwordMatch');
 const passwordFeedBackArea = document.querySelector('.passwordFeedBackArea');
+const submitButton = document.querySelector('.submit-btn');
 
 const handleToggleInput = (e) => {
 
@@ -42,9 +43,12 @@ username.addEventListener("keyup", (e) => {
             console.log("data", data);
             usernameSuccessOutput.style.display = 'none';
             if (data.username_error) {
+                submitButton.setAttribute("disabled", "disabled");
                 username.classList.add("is-invalid");
                 feedBackArea.style.display = "block";
                 feedBackArea.innerHTML=`<p>${data.username_error}</p>`;
+            }else {
+                submitButton.removeAttribute("disabled");
             }
         });        
     }
@@ -72,9 +76,12 @@ email.addEventListener("keyup", (e) => {
             console.log("data", data);
             emailSuccessOutput.style.display = 'none';
             if (data.email_error) {
+                submitButton.setAttribute("disabled", "disabled");
                 email.classList.add("is-invalid");
                 emailFeedBackArea.style.display = "block";
                 emailFeedBackArea.innerHTML=`<p>${data.email_error}</p>`;
+            }else{
+                submitButton.removeAttribute("disabled");
             }
         });        
     }
@@ -99,9 +106,12 @@ passwordRepeat.addEventListener("keyup", (e) => {
 
     if (passwordRepeatVal.length > 0) {
             if (passwordRepeatVal !== passwordVal) {
+                submitButton.setAttribute("disabled", "disabled");
                 passwordRepeat.classList.add("is-invalid");
                 passwordFeedBackArea.style.display = "block";
                 passwordFeedBackArea.innerHTML=`<p>Passwords do not match</p>`;
-            };
+            }else {
+                submitButton.removeAttribute("disabled");
+            }
         };
 });

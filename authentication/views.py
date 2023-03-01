@@ -13,7 +13,33 @@ class RegistrationView(View):
         return render(request, 'auth/register.html')
 
     def post(self, request):
-        messages.success(request, 'Account created successfully')
+        
+        # Get user datd
+        
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+
+
+        # Validate data
+
+        if not User.objects.filter(username = username).exists():
+            if not User.objects.filter(email = email).exists():
+
+                if len(password) < 8:
+                    messages.error(request, 'Password too short')
+                    return render(request, 'auth/register.html')
+
+        
+        # Create account and display alert
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                # You can use the above method to add the password, or you can use...
+                # user.set_password(password)
+
+                messages.success(request, 'Account created successfully')
+                return render(request, 'auth/register.html')
+
         return render(request, 'auth/register.html')
     
 
