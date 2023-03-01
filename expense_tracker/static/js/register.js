@@ -4,6 +4,22 @@ const email = document.querySelector('#emailField');
 const emailFeedBackArea = document.querySelector('.emailFeedBackArea');
 const usernameSuccessOutput = document.querySelector('.usernameSuccessOutput');
 const emailSuccessOutput = document.querySelector('.emailSuccessOutput');
+const showPassword = document.querySelector('.showPassword');
+const password = document.querySelector('#passwordField');
+
+const handleToggleInput = (e) => {
+
+    if(showPassword.textContent==='Show'){
+        showPassword.textContent = 'Hide';
+        password.setAttribute("type", "text");
+    }else{
+        showPassword.textContent = 'Show';
+        password.setAttribute("type", "password");
+    }
+
+};
+
+
 
 username.addEventListener("keyup", (e) => {
     console.log('');
@@ -33,6 +49,7 @@ username.addEventListener("keyup", (e) => {
 })
 
 
+
 email.addEventListener("keyup", (e) => {
     console.log('');
 
@@ -60,3 +77,7 @@ email.addEventListener("keyup", (e) => {
     }
 
 })
+
+
+
+showPassword.addEventListener("click", handleToggleInput);
