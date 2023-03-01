@@ -6,6 +6,9 @@ const usernameSuccessOutput = document.querySelector('.usernameSuccessOutput');
 const emailSuccessOutput = document.querySelector('.emailSuccessOutput');
 const showPassword = document.querySelector('.showPassword');
 const password = document.querySelector('#passwordField');
+const passwordRepeat = document.querySelector('#passwordRepeatField');
+const passwordMatch = document.querySelector('.passwordMatch');
+const passwordFeedBackArea = document.querySelector('.passwordFeedBackArea');
 
 const handleToggleInput = (e) => {
 
@@ -81,3 +84,24 @@ email.addEventListener("keyup", (e) => {
 
 
 showPassword.addEventListener("click", handleToggleInput);
+
+
+passwordRepeat.addEventListener("keyup", (e) => {
+    console.log('');
+    
+    const passwordVal = password.value;
+    const passwordRepeatVal = e.target.value;
+
+    passwordMatch.style.display = 'block';
+    
+    passwordRepeat.classList.remove("is-invalid");
+    passwordFeedBackArea.style.display = "none";
+
+    if (passwordRepeatVal.length > 0) {
+            if (passwordRepeatVal !== passwordVal) {
+                passwordRepeat.classList.add("is-invalid");
+                passwordFeedBackArea.style.display = "block";
+                passwordFeedBackArea.innerHTML=`<p>Passwords do not match</p>`;
+            };
+        };
+});
