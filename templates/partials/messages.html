@@ -1,0 +1,13 @@
+
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert alert-sm alert-{{ message.tags }}"{% endif %}>
+        <!-- The logic behind this is the message tag will be the same in django and bootstrap i.e info, success, warning will be the same. The only exception will be error, and that is because bootstrap will see it as danger, not error -->
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

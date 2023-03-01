@@ -4,11 +4,16 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 import validate_email
+from django.contrib import messages
 
 # This view renders the registration form
 class RegistrationView(View):
     
     def get(self, request):
+        return render(request, 'auth/register.html')
+
+    def post(self, request):
+        messages.success(request, 'Account created successfully')
         return render(request, 'auth/register.html')
     
 
