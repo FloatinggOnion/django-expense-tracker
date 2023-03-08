@@ -10,6 +10,34 @@ const passwordRepeat = document.querySelector('#passwordRepeatField');
 const passwordMatch = document.querySelector('.passwordMatch');
 const passwordFeedBackArea = document.querySelector('.passwordFeedBackArea');
 const submitButton = document.querySelector('.submit-btn');
+const firstname = document.querySelector('#firstnameField');
+const firstnameFeedBackArea = document.querySelector('.firstnameFeedBackArea');
+const firstnameSuccessOutput = document.querySelector('.firstnameSuccessOutput');
+const lastname = document.querySelector('#lastnameField');
+const lastnameFeedBackArea = document.querySelector('.lastnameFeedBackArea');
+const lastnameSuccessOutput = document.querySelector('.lastnameSuccessOutput');
+const csrftoken = getCookie('csrftoken');
+
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+
 
 const handleToggleInput = (e) => {
 
@@ -35,8 +63,10 @@ username.addEventListener("keyup", (e) => {
     username.classList.remove("is-invalid");
     feedBackArea.style.display = "none";
 
+
     if (usernameVal.length > 0) {
         fetch('/auth/validate-username', {
+            headers: {'X-CSRFToken': csrftoken},
             body: JSON.stringify({username: usernameVal}),
             method: "POST",
         }).then(res=>res.json()).then(data=>{
@@ -70,9 +100,12 @@ email.addEventListener("keyup", (e) => {
 
     if (emailVal.length > 0) {
         fetch('/auth/validate-email', {
+            headers: {'X-CSRFToken': csrftoken},
             body: JSON.stringify({email: emailVal}),
             method: "POST",
-        }).then(res=>res.json()).then(data=>{
+        })
+        .then(res=>res.json())
+        .then(data=>{
             console.log("data", data);
             emailSuccessOutput.style.display = 'none';
             if (data.email_error) {
@@ -115,3 +148,6 @@ passwordRepeat.addEventListener("keyup", (e) => {
             }
         };
 });
+
+
+

@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 import validate_email
 from django.contrib import messages
+from django.core.mail import send_mail
 
 # This view renders the registration form
 class RegistrationView(View):
@@ -37,11 +38,23 @@ class RegistrationView(View):
                 # You can use the above method to add the password, or you can use...
                 # user.set_password(password)
 
+                email_subject = 'Activate your account'
+                email_body = ''
+                send_mail(
+                    email_subject,
+                    email_body,
+                    'noreply@atwotcost.com',
+                    [email],
+                    fail_silently=False,
+                )
+
                 messages.success(request, 'Account created successfully')
                 return render(request, 'auth/register.html')
 
         return render(request, 'auth/register.html')
     
+
+
 
 # This view handles the username validation (Checking whether it is already in the database)
 class UsernameValidationView(View):
